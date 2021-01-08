@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class QuestionController extends Controller
 {
@@ -14,7 +15,6 @@ class QuestionController extends Controller
      */
     public function index()
     {
-
         return Question::all();
     }
 
@@ -36,7 +36,9 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // auth()->user()->questions()->create($request->all());
+        Question::create($request->all());
+        return response('Асуултыг амжилттай үүсгэлээ.', Response::HTTP_CREATED);
     }
 
     /**
@@ -47,7 +49,7 @@ class QuestionController extends Controller
      */
     public function show(Question $question)
     {
-        //
+        return $question;
     }
 
     /**
@@ -81,6 +83,7 @@ class QuestionController extends Controller
      */
     public function destroy(Question $question)
     {
-        //
+        $question->delete();
+        return response('Устгагдсан', Response::HTTP_OK);
     }
 }
