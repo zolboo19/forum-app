@@ -31,4 +31,13 @@ class CategoryController extends Controller
         $category->delete();
         return response(null, Response::HTTP_NO_CONTENT);
     }
+
+    public function update(Request $request, Category $category)
+    {
+        $category->update([
+            'name' => $request->name,
+            'slug' => Str::slug($request->name)
+        ]);
+        return response('Категорын мэдээллийг амжилттай шинэчиллээ.', Response::HTTP_ACCEPTED);
+    }
 }
