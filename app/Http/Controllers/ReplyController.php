@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ReplyResource;
 use App\Models\Question;
 use App\Models\Reply;
 use Illuminate\Http\Request;
@@ -11,13 +12,14 @@ class ReplyController extends Controller
 {
     public function index(Question $question)
     {
-        return $question->replies;
+        return ReplyResource::collection($question->replies);
         // return Reply::latest()->get();
     }
 
     public function show(Question $question, Reply $reply)
     {
         return $reply;
+        // return new ReplyResource($reply);
     }
     public function store(Question $question, Request $request)
     {
@@ -29,5 +31,11 @@ class ReplyController extends Controller
     {
         $reply->delete();
         return response(null, Response::HTTP_NOT_FOUND);
+    }
+
+    public function update(Question $question, Request $request, Reply $reply)
+    {
+        $reply->update($request->all());
+        return response('Сэтгэгдлийг амжилттай шинэчиллээ.', Response::HTTP_ACCEPTED);
     }
 }
