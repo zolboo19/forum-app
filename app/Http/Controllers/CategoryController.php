@@ -10,6 +10,10 @@ use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('JWT', ['except' => ['index', 'show']]);
+    }
     public function index()
     {
         return  CategoryResource::collection(Category::latest()->get());

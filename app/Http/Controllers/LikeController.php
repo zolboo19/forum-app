@@ -7,6 +7,10 @@ use App\Models\Reply;
 
 class LikeController extends Controller
 {
+    // public function __construct()
+    // {
+    //     $this->middleware('JWT', ['except' => ['login', 'signup']]);
+    // }
     public function like(Reply $reply)
     {
         $reply->likes()->create([
